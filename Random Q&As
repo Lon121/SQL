@@ -1,0 +1,62 @@
+---Q1 -CREATE A REPORT SHOWING THE AVERAGE AMOUNT SOLD BY AN EMPLOYEE 
+Select empid,
+       firstname,
+	   lastname,
+	   AVG(tot_amt_sold) as avg_amt_sold
+from
+
+
+(Select E.empid,
+       e.firstname,
+	   e.lastname,
+	  Sum( S.freight) as tot_amt_sold
+from hr.employees E 
+inner join sales.orders S
+on E.empid = S.empid
+Group By E.empid,
+       e.firstname,
+	   e.lastname) as delon
+	   Group BY empid,
+       firstname,
+	   lastname;
+--Q2-CREATE A REPORT USING A DERIVED TABLE OR IN LINE VIEW TO SHOW WHICH EMPLOYEE GETS A --BONUS
+--AN EMPLOYEE GETS 1000 BONUS IF THEY SELL MORE THAN 2000,2000 BONUS IF THEY SELL MORE ----THAN 4000,
+--AND 3000 BONUS IF THEY SELL MORE THAN 7000
+Select empid, firstname, lastname, tot_amt_sold
+,Case when tot_amt_sold = 2000 then 1000
+      when tot_amt_sold > 2000 and tot_amt_sold > = 4000 then 2000
+	  when tot_amt_sold > 4000 and tot_amt_sold > = 7000 then 3000 
+	  else 4000
+	  end bonus
+From
+(Select e.empid,
+       e.firstname,
+	   e.lastname,
+	   Sum( S.freight) As tot_amt_sold
+from hr.Employees E
+inner join sales.orders S
+on e.empid = s.empid
+Group By e.empid,
+       e.firstname,
+	   e.lastname) As Delon_Report;
+
+--Q3-CREATE A REPORT FOR TRANSACTIONS MADE BY CUSTOMERS AND CLASSIFY THE FREIGHT AMOUNT ---SPENT INTO TWO CATEGORIES.
+--A FREIGHT AMOUNT IS CONSIDERED HIGH PURCHASE IF IT EXCEEDS 500, AND LOW PURCHASE IF IT --IS BELOW 500
+Select custid, contactname, companyname, tot_amt_spent
+, case when tot_amt_spent > 500 then 'High Purchase'
+       when tot_amt_spent < 500 then 'low purchase'
+	   else 'very purchase'
+	   end as Big_Bank
+from
+
+(Select C.custid,
+       C.contactname,
+	   C. companyname,
+	  Sum( O.freight) as tot_amt_spent
+from Sales.Orders O
+inner join sales.customers C
+on o.custid = c.custid
+Group By C.custid,
+       C.contactname,
+	   C. companyname,
+	   O.empid) As high_low_purchase; 
