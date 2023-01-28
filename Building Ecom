@@ -1,0 +1,130 @@
+CREATE DATABASE ECOMMERCE_DB;
+
+
+CREATE TABLE CUSTOMERS
+(
+Customer_id integer not null,
+Customer_city Varchar(50) not null,
+Customer_state Varchar(50) not null,
+Customer_street Varchar(50) not null,
+Customer_zip_code Varchar(5) not null,
+Customer_firstname Varchar(50) not null,
+Customer_lastname Varchar(50)  not null,
+Customer_phonenum Varchar(10)  not null,
+Customer_DOB Date not null,
+);
+ALTER TABLE CUSTOMERS 
+ADD CONSTRAINT PK_Customer_id_CUSTOMERS Primary key (Customer_id); 
+
+CREATE TABLE PRODUCTS
+(
+Product_Id integer Not null,
+Product_name Varchar(50) not null,
+Product_type Varchar(50) not null,
+Product_Category Varchar(50) not null,
+Price  Varchar(50) not null,
+Product_Color Varchar(10) not null
+);
+
+ALTER TABLE PRODUCTS 
+ADD CONSTRAINT PK_PRODUCT_ID PRIMARY KEY (PRODUCT_ID)
+
+CREATE TABLE EMPLOYEE 
+(
+Employee_id integer not null,
+Employee_Firstname Varchar(50) not null,
+Employee_lastname Varchar(50) not null,
+Employee_city Varchar(50) not null,
+Employee_state Varchar(50) not null,
+Employee_street Varchar(50) not null,
+Employee_zipcode Varchar(5) not null,
+Employee_phonenum Varchar(10) not null,
+Employee_DOB  Date not null,
+);
+ALTER TABLE EMPLOYEE 
+ADD CONSTRAINT PK_EMPLOYEE_ID_EMPLOYEE PRIMARY KEY (EMPLOYEE_ID)
+
+CREATE TABLE SALES
+(
+Order_id integer not null,
+Order_date Date  not null,
+Order_quantity integer not null,
+Product_id integer not null,
+Customer_id integer not null,
+Employee_id integer  not null,
+Ship_address Varchar(50) not null,
+Transaction_amount integer not null,
+Shipped_date date not null,
+);
+ALTER TABLE SALES
+ADD CONSTRAINT PK_ORDER_ID_SALES PRIMARY KEY (ORDER_ID)
+
+INSERT INTO CUSTOMERS(CUSTOMER_ID, CUSTOMER_CITY, Customer_state, Customer_street, Customer_zip_code, Customer_firstname, 
+Customer_lastname, Customer_phonenum, Customer_DOB)
+VALUES 
+(1000,	'Upper marlboro',	'Maryland',	'812 Malaysia Ave',	'20967',	'Corey',	'Coleman',	'9890392799',	'1981-01-01'),
+(1001, 'Silver Spring',	'Maryland',	'7624 new Parisia street',	'10957',	'Eloge',	'Vanie,',	'4989636377',	'1975-06-08'),
+(1002,	'Cherry Hills',	'California',	'1289 Freak rd',	'90210',	'Keisha',	'Scott',	'3476213372',	'1899-01-02'),
+(1003,	'Upper marlboro',	'Maryland',	'12 Silberk Lane',	'20987',	'Kyei',	'Gyimah',	'9890342111',	'1961-01-01'),
+(1004,	' Silver Spring',	' Maryland',	'890 new georgia street',	'20957',	' Millie',	' Gold',	'4989636377',	'1912-06-08'),
+(1005,	' Freehold Hills',	' California',	' 10 mach rd',	'90230',	' Josiah',	' Blood',	'3476283572',	'1809-01-02'),
+(1006,	' Brooklyn',	' Maryland',	'6792 new york street',	'20987',	' Lelima',	' Rafeek',	'9890345333',	'1951-01-01'),
+(1007,	' Hanover',	' Maryland',	'90 new astoria dr',	'20957',	' Millie',	' Gold',	'4989636377',	'1945-06-08'),
+(1008,	' Beverly Hills',	' California',	' 121 contee rd',	'90210',	'Keisha',	'Scott',	'3476283372',	'2009-01-02')
+
+
+INSERT INTO PRODUCTS(Product_Id, Product_name, Product_type, Product_Category, Price, Product_Color)
+VALUES 
+(200,'men single breasted suit', 'clothing', 'men', '500', 'Blue'),
+  (201,'men Double breasted suit', 'clothing', 'men', '500', 'Red'),
+ ( 202,'Women single breasted suit', 'clothing', 'men', '500', 'Blue'),
+  (203,' Women Double breasted Blazer', 'clothing', 'men', '500', 'Black'),
+  (204, 'men  overcoat', 'clothing', 'men', '500', 'Blue'),
+ ( 205,' Women  overcoat', 'clothing', 'men', '500', 'Blue'),
+  (300,'Men Shoe', 'Footwear', 'men', '500', 'Black'),
+ ( 301,'men Shoe' ,'Footwear', 'men', '500', 'Brown'),
+  (302,'men Robes' , 'clothing', 'men', '500', 'Blue'),
+  (303,'men Robes' , 'clothing', 'men', '500', 'Black'); 
+  SELECT * FROM EMPLOYEE 
+ INSERT INTO EMPLOYEE(Employee_id, Employee_Firstname, Employee_lastname, Employee_city, Employee_state,Employee_street,
+ Employee_zipcode, Employee_phonenum, Employee_DOB)
+ VALUES 
+ (1,'Martin','Gold','Manhattan','New York', '37 Ave', '10234', '2404645985','1988-05-08'),
+ ( 2,'Lelima','Rafik','Alignton','Virginia', '2348 Dayton St', '60832', '2023645986','1968-05-08'),
+  (3,'Didi','Ndukwu','Mclean','Virginia', '107 Ave','20704', '3012627369','1978-07-08'),
+  (4,'Cynthia','Gold','Las Vegas','Nevada', 'Freak Ave', '23826', '7262991723','1988-01-08'),
+  (5,'Milli','Gold','Manhattan','New York', '37 Ave', '10234', '3019821732','1991-05-18');
+
+  ALTER TABLE SALES 
+  ADD CONSTRAINT FK_EMPLOYEE_ID_SALES FOREIGN KEY(EMPLOYEE_ID)
+  REFERENCES EMPLOYEE(EMPLOYEE_ID)
+  
+  INSERT INTO  SALES(Order_id, Order_date, Order_quantity,Product_id,Customer_id, Employee_id,Ship_address, Transaction_amount,
+  Shipped_date)
+  VALUES 
+ (7001,'2020-08-03','4','202','1001','1','6792 new york street','2000','2020-08-04'),
+ ( 7002,'2020-08-04','5','200','1001','1','12 Silberk Lane','2500','2020-08-05'),
+  (7003,'2020-07-02','10','302','1008','1','1289 Freak rd','5000','2020-07-14'),
+  (7004,'2020-01-01','4','201','1003','1',' 10 mach rd','2000','2020-01-01'),
+  (7005,'2019-06-01','1','202','1001','2','2348 Dayton St','500','2019-06-20'),
+  (7006,'2020-08-03','4','205','1006','2',' 121 contee rd','2000','2020-08-04'),
+  (7007,'2020-08-03','4','303','1001','3','107 Ave','2000','2020-08-04'),
+  (7008,'2020-08-03','4','202','1002','3', '37 Ave','2000','2020-08-04'),
+  (7009,'2020-08-03','4','204','1001','4','890 new georgia street','2000','2020-08-04'),
+  (7010,'2020-08-03','4','202','1001','1','6792 new york street','2000','2020-08-04'),
+  (7011,'2020-08-03','3','202','1007','2','90 new astoria dr','1500','2020-08-04'),
+  (7012,'2020-08-03','4','302','1001','1',	'812 Malaysia Ave','2000','2020-08-04'),
+  (7013,'2020-08-03','4','201','1001','5','7624 new Parisia street','2000','2020-08-04'),
+  (7014,'2020-08-03','4','202','1006','1','14710 4th street','2000','2020-08-04'),
+  (7015,'2019-08-03','7','204','1004','1','2348 Dayton St','3500','2019-08-04'),
+  (7016,'2019-12-03','6','202','1005','1','6792 new york street','3000','2019-12-04');
+  
+  Select * from PRODUCTS
+
+  ALTER TABLE SALES 
+  ADD CONSTRAINT FK_PRODUCT_ID_SALES FOREIGN KEY(PRODUCT_ID)
+  REFERENCES PRODUCTS (PRODUCT_ID);
+
+  ALTER TABLE SALES 
+  ADD CONSTRAINT FK_CUSTOMER_ID_SALES FOREIGN KEY(CUSTOMER_ID)
+  REFERENCES CUSTOMERS (CUSTOMER_ID);
