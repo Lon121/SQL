@@ -19,9 +19,11 @@ Group By E.empid,
 	   Group BY empid,
        firstname,
 	   lastname;
+
 --Q2-CREATE A REPORT USING A DERIVED TABLE OR IN LINE VIEW TO SHOW WHICH EMPLOYEE GETS A --BONUS
 --AN EMPLOYEE GETS 1000 BONUS IF THEY SELL MORE THAN 2000,2000 BONUS IF THEY SELL MORE ----THAN 4000,
 --AND 3000 BONUS IF THEY SELL MORE THAN 7000
+
 Select empid, firstname, lastname, tot_amt_sold
 ,Case when tot_amt_sold = 2000 then 1000
       when tot_amt_sold > 2000 and tot_amt_sold > = 4000 then 2000
@@ -42,6 +44,8 @@ Group By e.empid,
 
 --Q3-CREATE A REPORT FOR TRANSACTIONS MADE BY CUSTOMERS AND CLASSIFY THE FREIGHT AMOUNT ---SPENT INTO TWO CATEGORIES.
 --A FREIGHT AMOUNT IS CONSIDERED HIGH PURCHASE IF IT EXCEEDS 500, AND LOW PURCHASE IF IT --IS BELOW 500
+
+
 Select custid, contactname, companyname, tot_amt_spent
 , case when tot_amt_spent > 500 then 'High Purchase'
        when tot_amt_spent < 500 then 'low purchase'
